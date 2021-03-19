@@ -41,13 +41,13 @@ def train():
                     time_str = datetime.datetime.now().isoformat()
                     print('{}\tepoch {:2d}\tstep {:3d}\ttrain loss={:.6f}'.format(time_str, epoch + 1, step, batch_loss))
 
-            # if (epoch+1) % FLAGS.save_per_epochs == 0:
-            #     if not os.path.exists(FLAGS.model_dir):
-            #         os.makedirs(FLAGS.model_dir)
-            #
-            #     save_path = os.path.join(FLAGS.model_dir, 'model.ckpt')
-            #     model.save(sess, save_path)
-            #     print("Epoch {}, saved checkpoint to {}".format(epoch+1, save_path))
+            if (epoch+1) % FLAGS.save_per_epochs == 0:
+                if not os.path.exists(FLAGS.model_dir):
+                    os.makedirs(FLAGS.model_dir)
+
+                save_path = os.path.join(FLAGS.model_dir, 'model.ckpt')
+                model.save(sess, save_path)
+                print("Epoch {}, saved checkpoint to {}".format(epoch+1, save_path))
 
 if __name__ == '__main__':
     # check parameter
