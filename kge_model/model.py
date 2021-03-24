@@ -38,7 +38,7 @@ class BaseModel(object):
                                           initializer=tf.random_uniform_initializer(-bound, bound)
                 )
 
-                # normalize relation embeding
+                # normalize relation embedding
                 self.relation_embedding = tf.nn.l2_normalize(self.relation_embedding, axis=1)
 
                 tf.summary.histogram(name=self.relation_embedding.op.name, values=self.relation_embedding)
@@ -51,7 +51,6 @@ class BaseModel(object):
                 self.h_neg = tf.nn.embedding_lookup(self.entity_embedding, self.iterator.h_neg) # corrupted head
                 self.t_neg = tf.nn.embedding_lookup(self.entity_embedding, self.iterator.t_neg) # corrupted tail
 
-            print(self.h, self.r, self.t)
             score_pos = self._score_func(self.h, self.r, self.t)
             score_neg = self._score_func(self.h_neg, self.r, self.t_neg)
             self.predict = score_pos

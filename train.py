@@ -65,6 +65,8 @@ if __name__ == '__main__':
         FLAGS.data_file, entity, entity_table, relation_table, FLAGS.batch_size, shuffle_buffer_size=FLAGS.shuffle_buffer_size)
     if FLAGS.model_name.lower() == "transe":
         model = TransE(iterator, FLAGS)
+    elif FLAGS.model_name.lower() == 'transh':
+        model = TransH(iterator, FLAGS)
 
 
     model.build_graph()
