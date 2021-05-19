@@ -6,7 +6,7 @@ def print_args(flags):
     print("\n Parameters:")
     for attr in flags:
         value = flags[attr].value
-        print("{%s}={%s}" % (attr, value))
+        print("[%s]=%s" % (attr, value))
     print("")
 
 
@@ -20,6 +20,7 @@ def load_vocab(vocab_file):
             vocab.append(word.strip())
 
     return vocab_table, vocab, vocab_size
+
 
 # restore checkpoint model
 def load_model(sess, ckpt):

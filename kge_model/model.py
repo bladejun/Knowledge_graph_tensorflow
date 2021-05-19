@@ -55,6 +55,7 @@ class BaseModel(object):
             score_neg = self._score_func(self.h_neg, self.r, self.t_neg)
             self.predict = score_pos
             self.loss = tf.reduce_sum(tf.maximum(0.0, self.params.margin + score_pos - score_neg), name='max_margin_loss')
+            # self.loss = tf.reduce_sum(self.params.margin + score_pos - score_neg, name='max_margin_loss')
             tf.summary.scalar(name=self.loss.op.name, tensor=self.loss)
             optimizer = get_optimizer_instance(self.params.optimizer, self.params.learning_rate)
             self.global_step = tf.Variable(initial_value=0, trainable=False, name='global_step')
@@ -62,15 +63,14 @@ class BaseModel(object):
             self.merge = tf.summary.merge_all()
         self._model_stats()
 
-
     @abc.abstractmethod
     def _score_func(self, h, r, t):
         """
         Score / energy functions f(h, t), must be implemented in subclasses.
             Args:
-                h, r, t: Tensor (b, k)
+                h, r, t: Tensor (batch_size, k)
             Returns:
-                Score tensor (b, 1)
+                Score tensor (batch_size, 1)
         """
         pass
 

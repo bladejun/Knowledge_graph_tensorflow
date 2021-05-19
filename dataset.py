@@ -3,12 +3,13 @@ Data read
 Data iterator for triplets (h, t, r) or (h`, t, r) or (h, t`, r)
 Input:
     Train data: data file
-        each line contains (h, t, r) triples seprated by '\t'
+        each line contains (h, t, r) triples separated by '\t'
 """
 
 import collections
 import random
 import tensorflow as tf
+
 
 # namedtuple
 class BatchedInput(
@@ -16,14 +17,17 @@ class BatchedInput(
         "BatchedInput", ("initializer", "h", "t", "r", "h_neg", "t_neg"))):
     pass
 
+
 def parsing(line):
+    # default value
     cols = [[''], [''], ['']]
     return tf.decode_csv(line, record_defaults=cols, field_delim='\t')
+
 
 def get_iterator(data_file, entity, entity_table, relation_table, batch_size, shuffle_buffer_size=None):
     """Iterator for train and eval.
     Args:
-        data_file: data file, each line contains (h, t, r) triple
+        data_file: data file, each line contains (h, t, r) triplets
         entity: list or tuple of all entities.
         entity_table: entity tf look-up table
         relation_table: relation tf look-up table
@@ -51,7 +55,7 @@ def get_iterator(data_file, entity, entity_table, relation_table, batch_size, sh
         else:
             return lambda h, t, r: (h, t, r, h, random.choice(entity))
 
-    # apply corrupted sampling
+    # apply corrupted triplets sampling
     dataset = dataset.map(sample())
 
     # find data through table then change type

@@ -1,6 +1,4 @@
-import six
 import tensorflow as tf
-
 
 def get_optimizer_instance(opt, learning_rate=None):
     """
@@ -11,14 +9,15 @@ def get_optimizer_instance(opt, learning_rate=None):
       Supported strings:
         * 'Adagrad': Returns an `AdagradOptimizer`.
         * 'Adam': Returns an `AdamOptimizer`.
-        * 'Ftrl': Returns an `FtrlOptimizer`.
         * 'RMSProp': Returns an `RMSPropOptimizer`.
         * 'SGD': Returns a `GradientDescentOptimizer`.
     Args:
       opt: An `Optimizer` instance, or supported string, as discussed above.
       learning_rate: A float. Only used if `opt` is a supported string.
+
     Returns:
       An `Optimizer` instance.
+
     Raises:
       ValueError: If `opt` is an unsupported string.
       ValueError: If `opt` is a supported string but `learning_rate` was not specified.
@@ -30,8 +29,8 @@ def get_optimizer_instance(opt, learning_rate=None):
         'RMSProp': tf.train.RMSPropOptimizer,
         'SGD': tf.train.GradientDescentOptimizer
     }
-    if isinstance(opt, six.string_types):
-        if opt in six.iterkeys(_OPTIMIZER_CLS_NAMES):
+    if isinstance(opt, str):
+        if opt in _OPTIMIZER_CLS_NAMES.keys():
             if learning_rate is None:
                 raise ValueError('learning_rate must be specified when opt is supported string.')
             return _OPTIMIZER_CLS_NAMES[opt](learning_rate=learning_rate)
@@ -45,4 +44,4 @@ def get_optimizer_instance(opt, learning_rate=None):
                 raise ValueError(
                     'Unsupported optimizer option: `{}`. '
                     'Supported names are: {} or an `Optimizer` instance.'.format(
-                        opt, tuple(sorted(six.iterkeys(_OPTIMIZER_CLS_NAMES)))))
+                        opt, tuple(sorted(_OPTIMIZER_CLS_NAMES.keys()))))

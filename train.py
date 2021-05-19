@@ -21,7 +21,7 @@ def train():
             save_path = os.path.join(FLAGS.model_dir, "model.ckpt")
             model.save(sess, save_path)
 
-            print('-----Start training-----')
+            print('-----Training start-----')
             epoch_loss = 0.0
             step = 0
 
@@ -49,6 +49,7 @@ def train():
                 model.save(sess, save_path)
                 print("Epoch {}, saved checkpoint to {}".format(epoch+1, save_path))
 
+
 if __name__ == '__main__':
     # check parameter
     print_args(FLAGS)
@@ -67,6 +68,8 @@ if __name__ == '__main__':
         model = TransE(iterator, FLAGS)
     elif FLAGS.model_name.lower() == 'transh':
         model = TransH(iterator, FLAGS)
+    elif FLAGS.model_name.lower() == 'transr':
+        model = TransR(iterator, FLAGS)
 
 
     model.build_graph()
