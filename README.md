@@ -10,3 +10,4 @@ Knowledge Graph Embedding Model collections implemented by TensorFlow
 |------|---|
 |TransE|Bordes, Antoine, et al. "Translating embeddings for modeling multi-relational data."|
 |TransH|Wang, Zhen, et al. "Knowledge graph embedding by translating on hyperplanes."|
+|TransR|Lin, et al. "Learning entity and relation embeddings for knowledge graph completion."|
